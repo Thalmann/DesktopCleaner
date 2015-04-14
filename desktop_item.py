@@ -1,6 +1,5 @@
 import os
 import time
-import subprocess
 
 class DesktopItem:
     "A class representing a desktop item, which can be a file or a folder."
