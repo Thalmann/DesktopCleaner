@@ -15,7 +15,11 @@ class DesktopItem:
     def __init__(self, file_, file_path):
         self.filename, self.file_extension = os.path.splitext(file_)
         self.file_path = file_path
-        is_dir = os.path.isdir(file_path)
-        is_file = os.path.isfile(file_path)
-        last_modified_epoch = os.path.getmtime(file_path)
-        last_modified_string = time.strftime('%d-%m-%Y %H:%M:%S', time.localtime(last_modified_epoch))
+        self.is_dir = os.path.isdir(file_path)
+        self.is_file = os.path.isfile(file_path)
+        self.last_modified_epoch = os.path.getmtime(file_path)
+        self.last_modified_string = time.strftime('%d-%m-%Y %H:%M:%S', time.localtime(self.last_modified_epoch))
+
+    def print_last_modified(self):
+        print self.filename + self.file_extension + '\t' + "last modified: " + self.last_modified_string
+
