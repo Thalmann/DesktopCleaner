@@ -21,11 +21,17 @@ def open_file_ui(di):
         print "Error - not a file or folder." #error handling af hvis det ikke er en fil eller dir..
         
 
-desktopPath = "C:\Users\Bruno\Desktop"
+def is_dir_ui(di):
+    if di.is_dir:
+        return ", compress and archive(c)"
+    else:
+        return " "
+
+desktop_path = "C:\Users\Bruno\Desktop"
 archive.create_archive()
 
-for i in os.listdir(desktopPath):
-    di = desktop_item.DesktopItem(i, os.path.join(desktopPath, i))
+for item in os.listdir(desktop_path):
+    di = desktop_item.DesktopItem(item, desktop_path)
     
     if di.last_modified_epoch < time.time()-(3*24*60*60*30): #All files older than 3 months
         # For testing the time
