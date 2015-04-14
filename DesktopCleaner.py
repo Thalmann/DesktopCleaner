@@ -59,7 +59,7 @@ for i in os.listdir(desktopPath):
             print "kept"
             
 
-print "done deal"
+print "Good work - your desktop is clean."
 
     
 
