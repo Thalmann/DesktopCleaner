@@ -34,7 +34,7 @@ def create_archive():
 def move_file(srcFilePath, dstDir):
     shutil.move(srcFilePath, os.path.join(os.getcwd(),dstDir))
 
-def archive_file(di): #Where di is a custom type - DesktopItem
+def archive_item(di): #Where di is a custom type - DesktopItem
 
     if di.is_dir:
         print "folders"
