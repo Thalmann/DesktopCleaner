@@ -1,5 +1,6 @@
 import os
 import time
+import subprocess
 
 class DesktopItem:
     "A class representing a desktop item, which can be a file or a folder."
@@ -36,6 +37,6 @@ class DesktopItem:
             os.system("\"" + self.file_path + "\"") # quotes to account for filenames with whitespace
         else:
             try:
-                subprocess.Popen([program, selffile_path])
+                subprocess.Popen([program, self.file_path])
             except:
                 print program + " not found."

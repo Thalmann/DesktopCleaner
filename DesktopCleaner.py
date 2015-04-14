@@ -1,14 +1,13 @@
 import os
 import time
 import archive
-import subprocess
 import extensions
 import shutil
 import desktop_item
 
 def open_file_ui(di):
     if di.is_dir:
-        di.start("notepad.exe")
+        di.start("explorer.exe")
     elif di.is_file:    
         if di.file_extension == "":
             print "File has no file extension."
@@ -49,7 +48,7 @@ for i in os.listdir(desktopPath):
             print "file deleted"
         elif user_input == "a":
             # do archive stuff - maybe have some kind of archive structure
-            archive.archive_file(di.filename+di.file_extension, di.file_path)
+            archive.archive_file(di)
         elif user_input == "k":
             # do some keep stuff maybe
             print "kept"
