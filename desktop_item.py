@@ -12,13 +12,15 @@ class DesktopItem:
     last_modified_epoch = None
     last_modified_string = None
     size = None
+    desktop_path = None
 
-    def __init__(self, file_, file_path):
-        self.filename, self.file_extension = os.path.splitext(file_)
-        self.file_path = file_path
-        self.is_dir = os.path.isdir(file_path)
-        self.is_file = os.path.isfile(file_path)
-        self.last_modified_epoch = os.path.getmtime(file_path)
+    def __init__(self, item, desktop_path):
+        self.filename, self.file_extension = os.path.splitext(item)
+        self.desktop_path = desktop_path
+        self.file_path = os.path.join(desktop_path, item)
+        self.is_dir = os.path.isdir(self.file_path)
+        self.is_file = os.path.isfile(self.file_path)
+        self.last_modified_epoch = os.path.getmtime(self.file_path)
         self.last_modified_string = time.strftime('%d-%m-%Y %H:%M:%S', time.localtime(self.last_modified_epoch))
         self.size = os.path.getsize(self.file_path)
 
@@ -27,15 +29,29 @@ class DesktopItem:
 
     def delete(self):
         try:
-            os.remove(di.file_path)
+            os.remove(self.file_path)
         except:
-            shutil.rmtree(di.file_path) #takes care of if the folder is empty
+            import shutil
+            shutil.rmtree(self.file_path) #takes care of if the folder is empty
 
     def start(self, program=None):
         if program is None:
             os.system("\"" + self.file_path + "\"") # quotes to account for filenames with whitespace
         else:
             try:
+                import subprocess
                 subprocess.Popen([program, self.file_path])
             except:
                 print program + " not found."
+
+    def zip_dir(self):
+        if self.is_dir:
+            import shutil
+            shutil.make_archive(self.filename, "zip", self.file_path)
+            self.delete()
+            self.file_extension = ".zip"
+            self.file_path = os.path.join(self.desktop_path, self.filename + self.file_extension)
+            self.is_dir = False
+            self.is_file = True
+        else:
+            print "Only possible to use directories for compression."

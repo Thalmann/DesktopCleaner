@@ -14,4 +14,4 @@ def get_music_extensions():
     return ".mp3", ".wav"
 
 def get_system_extensions():
-    return ".bat", ".jar", ".ini", ".rar"
+    return ".bat", ".jar", ".ini", ".rar", ".zip"
