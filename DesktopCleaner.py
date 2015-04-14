@@ -8,16 +8,16 @@ import desktop_item
 
 def open_file_ui(di):
     if di.is_dir:
-        subprocess.Popen(["explorer.exe", di.file_path])
+        di.start("notepad.exe")
     elif di.is_file:    
         if di.file_extension == "":
             print "File has no file extension."
-            if os.path.getsize(di.file_path) < 1000000:
-                subprocess.Popen(["notepad.exe", di.file_path])
+            if di.size < 1000000:
+                di.start("notepad.exe")
         elif di.file_extension in extensions.get_shortcut_extensions():
             print "This is a shortcut for: " + di.filename
         else:
-            os.system("\"" + di.file_path + "\"") # quotes to account for filenames with whitespace
+            di.start()
     else:
         print "Error - not a file or folder." #error handling af hvis det ikke er en fil eller dir..
         
@@ -45,10 +45,7 @@ for i in os.listdir(desktopPath):
         user_input = raw_input()
         
         if user_input == "d":
-            try:
-                os.remove(di.file_path)
-            except:
-                shutil.rmtree(di.file_path) #takes care of if the folder is empty
+            di.delete()
             print "file deleted"
         elif user_input == "a":
             # do archive stuff - maybe have some kind of archive structure
