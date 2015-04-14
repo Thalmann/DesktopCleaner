@@ -34,34 +34,33 @@ def create_archive():
 def move_file(srcFilePath, dstDir):
     shutil.move(srcFilePath, os.path.join(os.getcwd(),dstDir))
 
-def archive_file(f, filePath):
-    fileExtension = os.path.splitext(f)[1]
+def archive_file(di): #Where di is a custom type - DesktopItem
 
-    if os.path.isdir(filePath):
+    if di.is_dir:
         print "folders"
-        move_file(filePath, textfiles)
-    elif os.path.isfile(filePath):
-        if fileExtension in extensions.get_textfile_extensions():
+        move_file(di.file_path, textfiles)
+    elif os.path.isfile(di.file_path):
+        if di.file_extension in extensions.get_textfile_extensions():
             print "textfile"
-            move_file(filePath, textfiles)
-        elif fileExtension in extensions.get_picture_extensions():
+            move_file(di.file_path, textfiles)
+        elif di.file_extension in extensions.get_picture_extensions():
             print "picture"
-            move_file(filePath, pictures)
-        elif fileExtension in extensions.get_shortcut_extensions():
+            move_file(di.file_path, pictures)
+        elif di.file_extension in extensions.get_shortcut_extensions():
             print "shortcut"
-            move_file(filePath, shortcuts)
-        elif fileExtension in extensions.get_video_extensions():
+            move_file(di.file_path, shortcuts)
+        elif di.file_extension in extensions.get_video_extensions():
             print "video"
-            move_file(filePath, videofiles)
-        elif fileExtension in extensions.get_music_extensions():
+            move_file(di.file_path, videofiles)
+        elif di.file_extension in extensions.get_music_extensions():
             print "music"
-            move_file(filePath, musicfiles)
-        elif fileExtension in extensions.get_system_extensions():
+            move_file(di.file_path, musicfiles)
+        elif di.file_extension in extensions.get_system_extensions():
             print "system"
-            move_file(filePath, systemfiles)
+            move_file(di.file_path, systemfiles)
         else:
             print "fileformat no found - moved to other"
-            move_file(filePath, other)
+            move_file(di.file_path, other)
     else:
         print "Error - not a file or folder." #error handling af hvis det ikke er en fil eller dir..
         
