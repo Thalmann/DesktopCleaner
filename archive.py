@@ -2,7 +2,7 @@ import os
 import shutil
 import extensions
 
-archivePath = "D:\desktopArchive"
+archivePath = ""
 
 # Archive folder names:
 pictures = "pictures"
@@ -18,7 +18,8 @@ def create_dir(name):
     if not os.path.exists(name):
         os.mkdir(name)
 
-def create_archive():
+def create_archive(archivePath):
+    archivePath = archivePath
     create_dir(archivePath)    
     os.chdir(archivePath)
     
