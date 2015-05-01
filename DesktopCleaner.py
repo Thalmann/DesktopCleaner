@@ -49,45 +49,44 @@ if(not isinstance(clean_desktop_time_days, int)):
 
 archive.create_archive(archive_path)
 
-while(True):
-    for item in os.listdir(desktop_path):
-        di = desktop_item.DesktopItem(item, desktop_path)
-        
-        if di.last_modified_epoch < time.time()-(clean_desktop_time_days*24*60*60): #All files older than 3 months
-            # For testing the time
-            # print str(time.time())
-            # print time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()-(24*60*60*30)))
-            # print time.time()-(24*60*60*30)
-            # print last_modified_epoch
+#while(True): issue #1
+for item in os.listdir(desktop_path):
+    di = desktop_item.DesktopItem(item, desktop_path)
+    
+    if di.last_modified_epoch < time.time()-(clean_desktop_time_days*24*60*60): #All files older than 3 months
+        # For testing the time
+        # print str(time.time())
+        # print time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()-(24*60*60*30)))
+        # print time.time()-(24*60*60*30)
+        # print last_modified_epoch
 
-            print "This file is older than 3 months: "
-            di.print_last_modified()
+        print "This file is older than: " + time.strftime('%d-%m-%Y %H:%M:%S', time.localtime(time.time()-(clean_desktop_time_days*24*60*60)))
+        di.print_last_modified()
 
-            open_file_ui(di)
-
-            
-            print "Do you want to delete(d), archive(a)" + is_dir_ui(di) + "or keep(k) the file. Enter q to quit."
-            user_input = raw_input()
-            
-            if user_input == "d":
-                di.delete()
-                print "file deleted"
-            elif user_input == "a":
-                # do archive stuff - maybe have some kind of archive structure
-                archive.archive_item(di)
-            elif user_input == "k":
-                # do some keep stuff maybe
-                print "kept"
-            elif user_input == "q":
-                exit()
-            elif di.is_dir and user_input == "c":
-                di.zip_dir()
-                archive.archive_item(di)
-            else:
-                print "kept"
-                
-
-    print "Good work - your desktop is clean."
+        open_file_ui(di)
 
         
+        print "Do you want to delete(d), archive(a)" + is_dir_ui(di) + "or keep(k) the file. Enter q to quit."
+        user_input = raw_input()
+        
+        if user_input == "d":
+            di.delete()
+            print "file deleted"
+        elif user_input == "a":
+            archive.archive_item(di)
+        elif user_input == "k":
+            # do some keep stuff maybe
+            print "kept"
+        elif user_input == "q":
+            exit()
+        elif di.is_dir and user_input == "c":
+            di.zip_dir()
+            archive.archive_item(di)
+        else:
+            print "kept"
+            
+
+print "Good work - your desktop is clean."
+
+    
 
