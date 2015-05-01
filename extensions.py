@@ -1,5 +1,5 @@
 def get_textfile_extensions():
-    return ".txt", ".doc", ".pdf"
+    return ".txt", ".doc", ".pdf", ".docx", ".xls", ".xlsx", ".ppt", ".pptx", ".pub"
 
 def get_shortcut_extensions():
     return ".lnk", ".url"
