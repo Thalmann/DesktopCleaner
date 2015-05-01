@@ -1,5 +1,15 @@
 import os
 import time
+import errno
+import stat
+
+def handleRemoveReadonly(func, path, exc):
+        excvalue = exc[1]
+        if func in (os.rmdir, os.remove) and excvalue.errno == errno.EACCES:
+            os.chmod(path, stat.S_IRWXU| stat.S_IRWXG| stat.S_IRWXO) # 0777
+            func(path)
+        else:
+            raise
 
 class DesktopItem:
     "A class representing a desktop item, which can be a file or a folder."
@@ -26,13 +36,13 @@ class DesktopItem:
 
     def print_last_modified(self):
         print self.filename + self.file_extension + '\t' + "last modified: " + self.last_modified_string
-
+    
     def delete(self):
         try:
             os.remove(self.file_path)
         except:
             import shutil
-            shutil.rmtree(self.file_path) #takes care of if the folder is empty
+            shutil.rmtree(self.file_path, ignore_errors=False, onerror=handleRemoveReadonly) #takes care of if the folder is empty and if the item is readonly
 
     def start(self, program=None):
         if program is None:
