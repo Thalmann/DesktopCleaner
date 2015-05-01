@@ -1,0 +1,3 @@
+desktop_path some_path
+archive_path some_path
+clean_desktop_time some_epoch_time

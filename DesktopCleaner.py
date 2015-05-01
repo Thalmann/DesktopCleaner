@@ -36,6 +36,7 @@ try:
 except:
     print "set paths in the paths.dc file."
     #subprocess.Popen(["notepad.exe", "paths.dc"])
+path_file_handler.close()
 
 if(not os.path.isdir(desktop_path) or not os.path.exists(desktop_path)):
     print "desktop path invalid"
