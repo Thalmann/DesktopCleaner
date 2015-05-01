@@ -29,10 +29,11 @@ def is_dir_ui(di):
 
 
 #LOAD PATHS from file paths.dc
-path_file_handler = open("paths.dc", "r")
+path_file_handler = open("settings.dc", "r")
 try:
     desktop_path = path_file_handler.readline().split(" ")[1].replace("\n","")
     archive_path = path_file_handler.readline().split(" ")[1].replace("\n","")
+    clean_desktop_time_days = int(path_file_handler.readline().split(" ")[1].replace("\n",""))
 except:
     print "set paths in the paths.dc file."
     #subprocess.Popen(["notepad.exe", "paths.dc"])
@@ -42,6 +43,8 @@ if(not os.path.isdir(desktop_path) or not os.path.exists(desktop_path)):
     print "desktop path invalid"
 if(not os.path.isdir(archive_path) or not os.path.exists(archive_path)):
     print "desktop path invalid"
+if(not isinstance(clean_desktop_time_days, int)):
+    print "clean_desktop_time must be an integer"
 
 
 archive.create_archive(archive_path)
@@ -50,7 +53,7 @@ while(True):
     for item in os.listdir(desktop_path):
         di = desktop_item.DesktopItem(item, desktop_path)
         
-        if di.last_modified_epoch < time.time()-(3*24*60*60*30): #All files older than 3 months
+        if di.last_modified_epoch < time.time()-(clean_desktop_time_days*24*60*60): #All files older than 3 months
             # For testing the time
             # print str(time.time())
             # print time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()-(24*60*60*30)))
