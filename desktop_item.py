@@ -14,17 +14,7 @@ def handleRemoveReadonly(func, path, exc):
 
 class DesktopItem:
     "A class representing a desktop item, which can be a file or a folder."
-
-    filename = None
-    file_path = None
-    file_extension = None
-    is_dir = False
-    is_file = False
-    last_modified_epoch = None
-    last_modified_string = None
-    size = None
-    desktop_path = None
-
+    
     def __init__(self, item, desktop_path):
         self.filename, self.file_extension = os.path.splitext(item)
         self.desktop_path = desktop_path
