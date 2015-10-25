@@ -4,7 +4,7 @@ import archive
 import extensions
 import shutil
 import desktop_item
-import logger
+import kept_items_handler
 
 def open_dialog(di):
     print 'Do you want to open {0}? (y/n)'.format(di.filename)
@@ -42,7 +42,7 @@ def is_dir_ui(di):
         return " "
 
     
-kept_items_handler = logger.KeptItemsHandler()
+kept_items_handler = kept_items_handler.KeptItemsHandler()
 
 #LOAD PATHS from file paths.dc
 with open("settings.dc", "r") as f:
