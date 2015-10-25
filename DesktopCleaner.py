@@ -80,25 +80,32 @@ for item in os.listdir(desktop_path):
 
         
         print "Do you want to delete(d), archive(a)" + is_dir_ui(di) + "or keep(k) the file. Enter q to quit."
-        user_input = raw_input()
-        
-        if user_input == "d":
-            di.delete()
-            print "file deleted"
-        elif user_input == "a":
-            archive.archive_item(di)
-        elif user_input == "k":
-            # do some keep stuff maybe
-            print "kept"
-        elif user_input == "q":
-            exit()
-        elif di.is_dir and user_input == "c":
-            di.zip_dir()
-            archive.archive_item(di)
-        else:
-            print "kept"
-            
 
+        while True:
+            user_input = raw_input()
+
+            if user_input == "d":
+                di.delete()
+                print "file deleted"
+                break
+            elif user_input == "a":
+                archive.archive_item(di)
+                break
+            elif user_input == "k":
+                # do some keep stuff maybe
+                print "kept"
+                break
+            elif user_input == "q":
+                exit()
+            elif di.is_dir and user_input == "c":
+                di.zip_dir()
+                archive.archive_item(di)
+                break
+            else:
+                print "Please choose one of the options specified."    
+
+
+                
 print "Good work - your desktop is clean."
 
     
