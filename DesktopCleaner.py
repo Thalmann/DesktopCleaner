@@ -41,6 +41,8 @@ def is_dir_ui(di):
     else:
         return " "
 
+    
+kept_items_handler = logger.Logger()
 
 #LOAD PATHS from file paths.dc
 with open("settings.dc", "r") as f:
@@ -62,8 +64,6 @@ is_path_valid(archive_path, error_msg='The given archive path is invalid.')
 
 
 archive.create_archive(archive_path)
-
-kept_items_log = logger.Logger()
 
 #while(True): issue #1
 for item in os.listdir(desktop_path):
@@ -101,6 +101,7 @@ for item in os.listdir(desktop_path):
                 print "kept"
                 break
             elif user_input == "q":
+                kept_items_handler.save_kept_items()
                 exit()
             elif di.is_dir and user_input == "c":
                 di.zip_dir()
