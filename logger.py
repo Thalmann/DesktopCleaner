@@ -1,23 +1,26 @@
 import hashlib
+import os
 
 class Logger:
     'A class that takes care of desktop items that needs to be kept over time'
 
     def __init__(self):
-        kept = list()
+        self.kept = list()
+        self.cwd = os.getcwd()
         with open('kept.dc', 'r') as f:
             for line in f:
-                kept.append(line)
+                self.kept.append(line)
 
-    def save_kept_items():
+    def save_kept_items(self):
+        os.chdir(self.cwd)
         with open('kept.dc', 'w') as f:
-            f.write('\n'.join(kept))
+            f.write('\n'.join(self.kept))
 
-    def add_item(desktop_item):
-        kept.append(create_hash(desktop_item.filename))
+    def add_item(self, desktop_item):
+        self.kept.append(self.create_hash(desktop_item.filename))
 
-    def create_hash(string):
+    def create_hash(self, string):
         return hashlib.md5(string).hexdigest()
 
-    def contains(desktop_item):
-        return create_hash(desktop_item.filename) in kept
+    def contains(self, desktop_item):
+        return self.create_hash(desktop_item.filename) in self.kept
