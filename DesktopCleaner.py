@@ -5,18 +5,31 @@ import extensions
 import shutil
 import desktop_item
 
+def open_dialog(di):
+    print 'Do you want to open {0}? (y/n)'.format(di.filename)
+    while True:
+        answer = raw_input()
+        if answer is 'y':
+            return True
+        elif answer is 'n':
+            return False
+        print 'Pls input y for yes or n for no!'
+
 def open_file_ui(di):
     if di.is_dir:
-        di.start("explorer.exe")
+        if open_dialog(di):
+            di.start("explorer.exe")
     elif di.is_file:    
         if di.file_extension == "":
             print "File has no file extension."
             if di.size < 1000000:
-                di.start("notepad.exe")
+                if open_dialog(di):
+                    di.start("notepad.exe")
         elif di.file_extension in extensions.get_shortcut_extensions():
             print "This is a shortcut for: " + di.filename
         else:
-            di.start()
+            if open_dialog(di):
+                di.start()
     else:
         print "Error - not a file or folder." #error handling af hvis det ikke er en fil eller dir..
         
