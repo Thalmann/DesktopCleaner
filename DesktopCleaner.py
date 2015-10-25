@@ -42,15 +42,14 @@ def is_dir_ui(di):
 
 
 #LOAD PATHS from file paths.dc
-path_file_handler = open("settings.dc", "r")
-try:
-    desktop_path = path_file_handler.readline().split(" ")[1].replace("\n","")
-    archive_path = path_file_handler.readline().split(" ")[1].replace("\n","")
-    clean_desktop_time_days = int(path_file_handler.readline().split(" ")[1].replace("\n",""))
-except:
-    print "set paths in the paths.dc file."
-    #subprocess.Popen(["notepad.exe", "paths.dc"])
-path_file_handler.close()
+with open("settings.dc", "r") as f:
+    try:
+        desktop_path = f.readline().split(" ")[1].replace("\n","")
+        archive_path = f.readline().split(" ")[1].replace("\n","")
+        clean_desktop_time_days = int(f.readline().split(" ")[1].replace("\n",""))
+    except Exception:
+        print "Please set paths and the time for how long items are allowed on the desktop in the settings.dc file."
+        exit(0)
 
 if(not os.path.isdir(desktop_path) or not os.path.exists(desktop_path)):
     print "desktop path invalid"
