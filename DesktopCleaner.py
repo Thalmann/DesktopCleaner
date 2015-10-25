@@ -4,6 +4,7 @@ import archive
 import extensions
 import shutil
 import desktop_item
+import kept_items_handler
 
 def open_file_dialog(di):
     print 'Do you want to open {0}? (y/n)'.format(di.filename)
@@ -40,6 +41,8 @@ def is_dir_ui(di):
     else:
         return " "
 
+    
+kept_items_handler = kept_items_handler.KeptItemsHandler()
 
 #LOAD PATHS from file paths.dc
 with open("settings.dc", "r") as f:
@@ -65,6 +68,8 @@ archive.create_archive(archive_path)
 #while(True): issue #1
 for item in os.listdir(desktop_path):
     di = desktop_item.DesktopItem(item, desktop_path)
+    if kept_items_handler.contains(di):
+        continue
     
     if di.last_modified_epoch < time.time()-(clean_desktop_time_days*24*60*60): #All files older than 3 months
         # For testing the time
@@ -92,10 +97,11 @@ for item in os.listdir(desktop_path):
                 archive.archive_item(di)
                 break
             elif user_input == "k":
-                # do some keep stuff maybe
+                kept_items_handler.add_item(di)
                 print "kept"
                 break
             elif user_input == "q":
+                kept_items_handler.save_kept_items()
                 exit()
             elif di.is_dir and user_input == "c":
                 di.zip_dir()
@@ -105,7 +111,7 @@ for item in os.listdir(desktop_path):
                 print "Please choose one of the options specified."    
 
 
-                
+kept_items_handler.save_kept_items()
 print "Good work - your desktop is clean."
 
     
