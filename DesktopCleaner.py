@@ -4,6 +4,7 @@ import archive
 import extensions
 import shutil
 import desktop_item
+import logger
 
 def open_dialog(di):
     print 'Do you want to open {0}? (y/n)'.format(di.filename)
