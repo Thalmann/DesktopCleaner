@@ -39,7 +39,7 @@ def archive_item(di): #Where di is a custom type - DesktopItem
 
     if di.is_dir:
         print "folders"
-        move_file(di.file_path, textfiles)
+        move_file(di.file_path, folders)
     elif os.path.isfile(di.file_path):
         if di.file_extension in extensions.get_textfile_extensions():
             print "textfile"
