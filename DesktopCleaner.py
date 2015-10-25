@@ -51,12 +51,13 @@ with open("settings.dc", "r") as f:
         print "Please set paths and the time for how long items are allowed on the desktop in the settings.dc file."
         exit(0)
 
-if(not os.path.isdir(desktop_path) or not os.path.exists(desktop_path)):
-    print "desktop path invalid"
-if(not os.path.isdir(archive_path) or not os.path.exists(archive_path)):
-    print "desktop path invalid"
-if(not isinstance(clean_desktop_time_days, int)):
-    print "clean_desktop_time must be an integer"
+def is_path_valid(path, error_msg='Path is invalid.'):
+    if(not os.path.isdir(path) or not os.path.exists(path)):
+        print error_msg
+        exit(0)
+
+is_path_valid(desktop_path, error_msg='The given desktop path is invalid.')
+is_path_valid(archive_path, error_msg='The given archive path is invalid.')
 
 
 archive.create_archive(archive_path)
