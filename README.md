@@ -10,14 +10,18 @@ Clean your desktop for the Windows operating system.
 * Run DesktopCleaner.py with python, eg: in the copmmand line input: "python DesktopCleaner.py". (requires python in PATH)
 
 #### The settings.dc file
-The file looks like this when you download it:
+##### The file looks like this when you download it:
 
 desktop_path some_path
+
 archive_path some_path
+
 clean_desktop_time_in_days some_time_in_days
 
-Example:
+##### Example:
 
 desktop_path C:\Users\Username\Desktop
+
 archive_path C:\desktopArchive
+
 clean_desktop_time_in_days 30
