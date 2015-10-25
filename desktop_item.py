@@ -3,6 +3,7 @@ import time
 import errno
 import stat
 
+#Stolen codesnippet :-b
 def handleRemoveReadonly(func, path, exc):
         excvalue = exc[1]
         if func in (os.rmdir, os.remove) and excvalue.errno == errno.EACCES:
