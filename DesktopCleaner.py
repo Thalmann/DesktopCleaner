@@ -5,7 +5,7 @@ import extensions
 import shutil
 import desktop_item
 
-def open_dialog(di):
+def open_file_dialog(di):
     print 'Do you want to open {0}? (y/n)'.format(di.filename)
     while True:
         answer = raw_input()
