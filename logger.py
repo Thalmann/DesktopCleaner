@@ -1,7 +1,7 @@
 import hashlib
 import os
 
-class Logger:
+class KeptItemsHandler:
     'A class that takes care of desktop items that needs to be kept over time'
 
     def __init__(self):

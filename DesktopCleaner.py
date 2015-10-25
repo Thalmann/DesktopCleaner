@@ -42,7 +42,7 @@ def is_dir_ui(di):
         return " "
 
     
-kept_items_handler = logger.Logger()
+kept_items_handler = logger.KeptItemsHandler()
 
 #LOAD PATHS from file paths.dc
 with open("settings.dc", "r") as f:
