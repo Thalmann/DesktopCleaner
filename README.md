@@ -1,8 +1,8 @@
 # DesktopCleaner
-Clean your desktop for the Windows operating system.
+Clean your desktop works only for the Windows operating system.
 
 #### What you need:
-* Python 2.7 installed
+* Python 2.7
 
 #### How to run DesktopCleaner:
 1. Clone this repo or download the zip
@@ -13,7 +13,7 @@ Clean your desktop for the Windows operating system.
 3. Run DesktopCleaner.py with python, eg: in the copmmand line input: "python DesktopCleaner.py". (requires python in PATH)
 
 #### The settings.dc file
-##### The file looks like this when you download it:
+##### The file contains the following when you download it:
 <pre>
 desktop_path <b>some_path</b>
 archive_path <b>some_path</b>
