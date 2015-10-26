@@ -35,29 +35,31 @@ def create_archive(archivePath):
 def move_file(srcFilePath, dstDir):
     shutil.move(srcFilePath, os.path.join(os.getcwd(),dstDir))
 
+def print_archived_message(desktop_item, folder):
+    print '{0} has been archived in the {1} folder.'.format(desktop_item.filename, folder)
+    
 def archive_item(di): #Where di is a custom type - DesktopItem
-
     if di.is_dir:
-        print "folders"
+        print_archived_message(di, "folders")
         move_file(di.file_path, folders)
     elif os.path.isfile(di.file_path):
         if di.file_extension in extensions.get_textfile_extensions():
-            print "textfile"
+            print_archived_message(di, "textfile")
             move_file(di.file_path, textfiles)
         elif di.file_extension in extensions.get_picture_extensions():
-            print "picture"
+            print_archived_message(di, "picture")
             move_file(di.file_path, pictures)
         elif di.file_extension in extensions.get_shortcut_extensions():
-            print "shortcut"
+            print_archived_message(di, "shortcut")
             move_file(di.file_path, shortcuts)
         elif di.file_extension in extensions.get_video_extensions():
-            print "video"
+            print_archived_message(di, "video")
             move_file(di.file_path, videofiles)
         elif di.file_extension in extensions.get_music_extensions():
-            print "music"
+            print_archived_message(di, "music")
             move_file(di.file_path, musicfiles)
         elif di.file_extension in extensions.get_system_extensions():
-            print "system"
+            print_archived_message(di, "system")
             move_file(di.file_path, systemfiles)
         else:
             print "fileformat no found - moved to other"
